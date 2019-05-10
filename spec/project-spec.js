@@ -1055,13 +1055,6 @@ describe('Project', () => {
     afterEach(() => sub.dispose())
 
     const waitForEvents = paths => {
-      // String replacement works around %Temp% containing a shortened path
-      // on Windows Azure builds but @atom/notify reporting expanded paths.
-      // I can't find a good way to expand short paths programmatically in
-      // Node on Windows.
-      const realPaths = paths
-        .map(p => fs.realpathSync(p).replace('VSSADM~1', 'VssAdministrator'))
-
       const remaining = new Set(realPaths)
       return new Promise((resolve, reject) => {
         checkCallback = () => {
